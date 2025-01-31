@@ -80,14 +80,14 @@ def blending_datasets(
             data = load_dataset(dataset, data_dir=data_dir)
             strategy.print(f"loaded {dataset} from files")
 
-        if train_split and train_split in data:
+        if train_split and train_split in data.column_names:
             train_data = data[train_split].select(range(min(max_count, len(data[train_split]))))
         else:
             train_data = data.select(range(min(max_count, len(data))))
         train_data_list.append(train_data)
 
         if return_eval:
-            if eval_split and eval_split in data:
+            if eval_split and eval_split in data.column_names:
                 eval_data = data[eval_split].select(range(min(max_count, len(data[eval_split]))))
             # train will contains eval? TODO
             else:
